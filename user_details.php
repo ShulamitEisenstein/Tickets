@@ -4,7 +4,7 @@ $name = $_GET['name'];
 $hostname = 'localhost';
 $username = 'root';
 $password = '';
-$database = 'shulamit_tiket';
+$database = 'Tickets';
 
 // db connection
 $con = mysqli_connect($hostname, $username, $password, $database) or die("Error " . mysqli_error($con));
