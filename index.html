@@ -41,8 +41,6 @@
             $('#customersTable').on('mousewheel', function () {
                 if (from < count && isLoading == false) {
                     isLoading = true;
-                    console.log("2222")
-
 
                     $.ajax({
                         url: "add_data.php",
@@ -64,12 +62,7 @@
                             isLoading = false;
                         }
                     });
-
                 }
-
-
-
-
             });
 
             t = $('#customersTable').DataTable({
@@ -89,11 +82,7 @@
                 scrollCollapse: true,
                 scroller: true
             });
-
         });
-
-
-
     </script>
 </body>
 

@@ -1,11 +1,11 @@
 <?php
 
 $name = $_GET['name'];
-// echo $name ;
 $hostname = 'localhost';
 $username = 'root';
 $password = '';
 $database = 'shulamit_tiket';
+
 // db connection
 $con = mysqli_connect($hostname, $username, $password, $database) or die("Error " . mysqli_error($con));
 if($con === false){
@@ -21,8 +21,7 @@ $sql = "SELECT users.UserId , UserName ,UserFamily,UserPhone,
         and UserName = '$name'
         
         " ;
-        // echo $sql ;
-      
+         
 $result = mysqli_query($con, $sql);
 if($result = mysqli_query($con, $sql)){
     if(mysqli_num_rows($result) > 0){

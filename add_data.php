@@ -1,6 +1,5 @@
 <?php
 
-//  echo $_GET['from'];
 $from = $_GET['from'];
 $hostname = 'localhost';
 $username = 'root';
