@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tickets</title>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+</head>
+
+<body>
+    <h2 style="text-align:center;">Tickets</h2>
+
+    <table id="customersTable" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>TicketId</th>
+                <th>UserName</th>
+                <th>InsertDate</th>
+                <th>Subject</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var t;
+        $(document).ready(function () {
+            $(document).on("click", 'table tbody tr :nth-child(2)',
+                function (event) {
+                    console.log(event.target.innerHTML);
+                    window.open("http://localhost:8080/tickets/user_details.php?name=" + event.target.innerHTML);
+                });
+
+            var from = 3;
+            var count = 4;
+            var isLoading = false;
+
+            $('#customersTable').on('mousewheel', function () {
+                if (from < count && isLoading == false) {
+                    isLoading = true;
+                    console.log("2222")
+
+
+                    $.ajax({
+                        url: "add_data.php",
+                        data: { "from": from },
+                        success: function (result) {
+                            console.log("result", result);
+                            if (result.data != null) {
+                                result.data.forEach(element => {
+                                    t.row.add(element).draw(false);
+
+                                });
+                            }
+                            count = result.count;
+                            from += 3;
+                            isLoading = false;
+                        },
+                        error: function (error) {
+                            console.error("error", error);
+                            isLoading = false;
+                        }
+                    });
+
+                }
+
+
+
+
+            });
+
+            t = $('#customersTable').DataTable({
+                "processing": true,
+                "iDisplayLength": 100,
+                "ajax": "fetch_data.php",
+                "columns": [
+                    { data: 'TicketId' },
+                    { data: 'UserName' },
+                    { data: 'InsertDate' },
+                    { data: 'Subject' },
+                    { data: 'Description' }
+
+                ],
+                deferRender: true,
+                scrollY: 400,
+                scrollCollapse: true,
+                scroller: true
+            });
+
+        });
+
+
+
+    </script>
+</body>
+
+</html>
